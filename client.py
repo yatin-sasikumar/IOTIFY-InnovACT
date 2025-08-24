@@ -244,7 +244,7 @@ class LoginPage(ctk.CTkFrame):
             self.after(100, lambda: self._check_login_response(future, username))
 
 class DevicesPage(ctk.CTkFrame):
-    def __init__(self, parent, controller=None):
+    def __init__(self, parent, controller):
         super().__init__(parent)
         self.controller = controller
         self.parent = parent
