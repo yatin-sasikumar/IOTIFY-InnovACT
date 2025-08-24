@@ -1,17 +1,30 @@
 import customtkinter as ctk
 
+
+def show_device_details():
+    
+    frame.destroy()
+   
+    device_frame = ctk.CTkFrame(root, corner_radius=15)
+    device_frame.pack(padx=30, pady=30, fill="both", expand=True)
+    label = ctk.CTkLabel(device_frame, text="Device Details", font=("Segoe UI", 20, "bold"))
+    label.pack(pady=40)
+
 def login():
     username = entry_user.get()
     password = entry_pass.get()
-    print("Username:", username)
-    print("Password:", password)
+    if username == "admin" and password == "admin123":
+        show_device_details()
+    else:
+        pass
+        #ctk.CTkMessagebox(title="Login Failed", message="Invalid username or password.", icon="cancel")
 
 ctk.set_appearance_mode("light")
 ctk.set_default_color_theme("blue")
 
 root = ctk.CTk()
 root.title("Login")
-root.geometry("350x250")
+root.geometry("550x350")
 root.resizable(False, False)
 
 frame = ctk.CTkFrame(root, corner_radius=15)
