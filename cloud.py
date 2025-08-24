@@ -68,8 +68,8 @@ class FakeESPController:
 # Initialize fake ESP controller
 esp_controller = FakeESPController()
 
-async def handle_client(websocket, path):
-    _ = path
+async def handle_client(websocket):
+    
     client_address = websocket.remote_address
     logger.info(f"Client connected: {client_address}")
     
@@ -154,6 +154,7 @@ async def handle_login(websocket, data):
     password = data.get('password', '').strip()
     
     logger.info(f"Login attempt: username={username}")
+    print(password)
     
     if not username or not password:
         response = "{'action': 'login', 'status': 'missing_credentials'}"
@@ -176,7 +177,7 @@ async def handle_login(websocket, data):
         if dat is None:
             response = "{'action': 'login', 'status': 'not_found'}"
             logger.info(f"Login failed - user not found: {username}")
-        elif dat[1] == password:  # dat[1] is password column
+        elif dat[2] == password:
             response = "{'action': 'login', 'status': 'affirmed'}"
             logger.info(f"Login successful: {username}")
         else:
@@ -245,7 +246,7 @@ async def handle_devices_request(websocket, data):
                 for device in devices_data:
                     device_list = list(device)
                     pin_number = str(device[3])  # Assuming pin number is at index 3
-                    current_state = esp_states.get(pin_number, '0')
+                    current_state = esp_states.get(pin_number, '1')
                     device_list.append(current_state)  # Append current state
                     result_devices.append(device_list)
                 
