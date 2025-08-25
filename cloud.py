@@ -50,7 +50,7 @@ class ESPController:
         """Send command to ESP32"""
         try:
             if not self.connected or not self.esp_websocket:
-                logger.error("ESP32 not connected")
+                #logger.error("ESP32 not connected")
                 return False
 
             pin_str = str(pin)
@@ -232,11 +232,11 @@ async def handle_device_control(websocket, message):
         success = await esp_controller.send_command(pin, state)
         
         if success:
-            response = f"'{{'action': 'control', 'status': 'success', 'pin': {pin}, 'state': {state}}}'"
-            logger.info(f"Control successful: pin={pin}, state={state}")
-        else:
             response = f"'{{'action': 'control', 'status': 'failed', 'pin': {pin}, 'state': {state}}}'"
-            logger.error(f"Control failed: pin={pin}, state={state}")
+            logger.info(f"Control failed: pin={pin}, state={state}")
+        else:
+            response = f"'{{'action': 'control', 'status': 'successful', 'pin': {pin}, 'state': {state}}}'"
+            logger.error(f"Control successful: pin={pin}, state={state}")
 
         await websocket.send(response)
 
