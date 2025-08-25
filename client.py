@@ -5,7 +5,7 @@ import websockets
 import threading
 import json
 
-CLOUD_SERVER_URL = "ws://localhost:8765"  # Change this to your cloud server IP
+CLOUD_SERVER_URL = "ws://192.168.176.53:8765"  # Change this to your cloud server IP
 
 class WebSocketClient:
     def __init__(self):
